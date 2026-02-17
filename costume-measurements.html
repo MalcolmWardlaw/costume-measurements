@@ -44,7 +44,49 @@
     color: var(--muted);
     margin-top: 0.15rem;
   }
-  form { max-width: 600px; margin: 0 auto; padding: 0.75rem; }
+  form { max-width: 1100px; margin: 0 auto; padding: 0.75rem; }
+
+  /* Two-column layout: form left, diagram right on wide screens */
+  .body-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .body-fields { flex: 1; min-width: 0; }
+  .body-diagram {
+    text-align: center;
+    padding: 0.75rem 0.5rem;
+    order: -1; /* image on top on mobile */
+  }
+  .body-diagram img {
+    max-width: 240px;
+    width: 100%;
+    height: auto;
+    opacity: 0.88;
+  }
+  .body-diagram .diagram-caption {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+
+  /* On wide/landscape screens: side by side */
+  @media (min-width: 700px) {
+    .body-layout {
+      flex-direction: row;
+      gap: 1.25rem;
+    }
+    .body-diagram {
+      order: 0; /* image on right */
+      position: sticky;
+      top: 80px;
+      align-self: flex-start;
+      padding-top: 0;
+    }
+    .body-diagram img {
+      max-width: 280px;
+    }
+  }
 
   /* Sections */
   .section {
@@ -53,6 +95,9 @@
     margin-bottom: 0.75rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     overflow: hidden;
+  }
+  .section:not(#sec-body) {
+    max-width: 600px;
   }
   .section-header {
     display: flex;
@@ -148,7 +193,7 @@
   }
 
   /* Submit */
-  .submit-area { padding: 0.5rem 0; }
+  .submit-area { padding: 0.5rem 0; max-width: 600px; }
   button[type="submit"] {
     width: 100%;
     padding: 0.9rem;
@@ -288,6 +333,16 @@
       <span class="chevron">▼</span>
     </button>
     <div class="section-body">
+      <div class="body-layout">
+
+        <!-- Reference diagram -->
+        <div class="body-diagram">
+          <img src="body-diagram.png" alt="Body measurement reference diagram showing measurement points A through Z">
+          <div class="diagram-caption">Measurement Reference Points</div>
+        </div>
+
+        <!-- Form fields -->
+        <div class="body-fields">
 
       <div class="field-row">
         <div class="field-group">
@@ -411,6 +466,8 @@
         </div>
       </div>
 
+        </div><!-- .body-fields -->
+      </div><!-- .body-layout -->
     </div>
   </div>
 
